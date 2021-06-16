@@ -91,6 +91,15 @@ $SupportedOS = $true
 
 ################################################## OS VALIDATOR ] (end) #############################################################
 if($SupportedOS -eq $true){
+
+    $Path = "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jpeg\UserChoice"
+    $SubKey = [Microsoft.Win32.Registry]::CurrentUser.OpenSubKey($Path, [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions)
+    $Acl = $SubKey.GetAccessControl()
+    $RemoveAcl = $Acl.Access | Where-Object {$_.AccessControlType -eq "Deny"}
+    $Acl.RemoveAccessRule($RemoveAcl)
+    $SubKey.SetAccessControl($Acl)
+    $SubKey.Close()
+
 	#Configure registry checkpoint mechanism
 	$regpath = "HKCU:\Software\DigitalGuardian\"
 	if(Test-Path($regpath)){}else{New-Item –Path $regpath -Name "RPA" -Force}
@@ -112,13 +121,6 @@ if($SupportedOS -eq $true){
 	function set-regitem($key, $ValName, $Value) {
 		Set-ItemProperty -Path $key -Name $ValName -Value $Value 
 	}
-
-
-	#add script to run path
-	$regpath="HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
-	$fetchRun = Get-Item -path $regpath | fl
-	$thisScript = '"'+"c:\windows\system32\WindowsPowerShell\v1.0\powershell.exe"+'"'+ " -NoLogo -NoProfile -Execution Bypass -File C:\Deploy\Provision_RPA.ps1"
-	Set-ItemProperty -Path $regpath -Name "RPADeploymentScript" -Value $thisScript -Type String
 
 
 	#Retrive checkpoint status (if a previous exec has occured)
@@ -204,8 +206,6 @@ if($SupportedOS -eq $true){
 
 	#remove script from run path
 	if($Status -eq 200){
-		$regpath="HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
-		Remove-ItemProperty -Path $regpath -Name "RPADeploymentScript";
 		#stop transcript service if all steps satisfied
 		Stop-Transcript;
 	}
