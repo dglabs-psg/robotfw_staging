@@ -87,18 +87,13 @@ Start-Transcript -Path "C:\Deploy\Provision_RPA.log" -Append
 ################################################## [ OS VALIDATOR ################################################################
 
 #PSG Performs this task so will already have prepared valid server.
-$SupportedOS -eq $true
+$SupportedOS = $true
 
 ################################################## OS VALIDATOR ] (end) #############################################################
 if($SupportedOS -eq $true){
 	#Configure registry checkpoint mechanism
-	$regpath = "HKLM:\Software\DigitalGuardian\"
-	if(Test-Path($regpath)){
-	#do nothing
-	}
-	else{
-		New-Item –Path $regpath -Name "RPA" -Force
-	}
+	$regpath = "HKCU:\Software\DigitalGuardian\"
+	if(Test-Path($regpath)){}else{New-Item –Path $regpath -Name "RPA" -Force}
 
 
 	#Functions
@@ -120,14 +115,14 @@ if($SupportedOS -eq $true){
 
 
 	#add script to run path
-	$regpath="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
+	$regpath="HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
 	$fetchRun = Get-Item -path $regpath | fl
 	$thisScript = '"'+"c:\windows\system32\WindowsPowerShell\v1.0\powershell.exe"+'"'+ " -NoLogo -NoProfile -Execution Bypass -File C:\Deploy\Provision_RPA.ps1"
 	Set-ItemProperty -Path $regpath -Name "RPADeploymentScript" -Value $thisScript -Type String
 
 
 	#Retrive checkpoint status (if a previous exec has occured)
-	$regpath = "HKLM:\Software\DigitalGuardian\RPA"
+	$regpath = "HKCU:\Software\DigitalGuardian\RPA"
 	$Status = 0; #always assume script has never ran before
 	$checkpointHive = Get-Item -path $regpath
 	$checkpointStatus = get-regitem $checkpointHive "Status" -ErrorAction SilentlyContinue
@@ -139,7 +134,7 @@ if($SupportedOS -eq $true){
 	}
 
 	#Setup steps
-	$regpath = "HKLM:\Software\DigitalGuardian\RPA"
+	$regpath = "HKCU:\Software\DigitalGuardian\RPA"
 	$Step1 = 0; #always assume script has never ran before
 	$Step2 = 0; #always assume script has never ran before
 	$checkpointHive = Get-Item -path $regpath
@@ -164,7 +159,7 @@ if($SupportedOS -eq $true){
 	}
 
 	#~[start]~~~~~~~~~~~~~~~~~~METHOD OF PROCEDURE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-	$regpath = "HKLM:\Software\DigitalGuardian\RPA"
+	$regpath = "HKCU:\Software\DigitalGuardian\RPA"
 
 
 	# --- DEPLOYING STEP 1 ----
@@ -209,7 +204,7 @@ if($SupportedOS -eq $true){
 
 	#remove script from run path
 	if($Status -eq 200){
-		$regpath="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+		$regpath="HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
 		Remove-ItemProperty -Path $regpath -Name "RPADeploymentScript";
 		#stop transcript service if all steps satisfied
 		Stop-Transcript;
