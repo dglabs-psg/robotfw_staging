@@ -32,7 +32,7 @@ $env:GIT_REDIRECT_STDERR = '2>&1'
 ## Deploy Python27
 Write-Host "Deploying Python 2.7 Interpretor..." -for cyan
 Invoke-WebRequest -Uri "https://www.python.org/ftp/python/2.7.13/python-2.7.13.msi" -OutFile "C:\deploy\python-2.7.13.x86.msi"
-$ArgumentList = "/i $Env:TEMP\python27\python-2.7.13.x86.msi ALLUSERS=1 ADDLOCAL=ALL /qn"
+$ArgumentList = "/i c:\deploy\python-2.7.13.x86.msi ALLUSERS=1 ADDLOCAL=ALL /qn"
 $ExitCode = (Start-Process -FilePath "MsiExec.exe" -ArgumentList $ArgumentList -Wait -PassThru).ExitCode
 if($ExitCode -eq 0){Write-Host "Success: Code=$ExitCode" -for green}else{Write-Host "Failed: Code=$ExitCode" -for red}
 
@@ -54,7 +54,7 @@ Write-Host "Success: Code=0" -for green
 Write-Host "Deploying AutoIt3..." -for cyan
 Invoke-WebRequest -Uri "https://www.autoitscript.com/cgi-bin/getfile.pl?autoit3/autoit-v3-setup.exe" -OutFile "C:\deploy\autoit-v3-setup.exe"
 $ArgumentList = "/S"
-$ExitCode = (Start-Process -FilePath "$Env:TEMP\autoit-v3-setup.exe" -ArgumentList $ArgumentList -Wait -PassThru).ExitCode
+$ExitCode = (Start-Process -FilePath "c:\deploy\autoit-v3-setup.exe" -ArgumentList $ArgumentList -Wait -PassThru).ExitCode
 if($ExitCode -eq 0){Write-Host "Success: Code=$ExitCode" -for green}else{Write-Host "Failed: Code=$ExitCode" -for red}
 
 #AutoIt Library 1.1
