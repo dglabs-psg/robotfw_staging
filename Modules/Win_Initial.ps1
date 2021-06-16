@@ -15,6 +15,8 @@ $scriptblock = @"
 #   ###########################################################################
 ##End region <Initialise> ============================================================
 "@
+Set-ExecutionPolicy Unrestricted -Force
+
 Write-Host $scriptblock -ForegroundColor yellow
 
 #MSGBOX

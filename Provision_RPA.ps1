@@ -159,7 +159,7 @@ if($SupportedOS -eq $true){
 	# --- DEPLOYING STEP 1 ----
 	if($Step1 -eq 0 -and $Status -eq 0){
 		try{
-		Write-Host "Starting deployment step 1/2: BASE CONFIG...`r`n" -for cyan
+		Write-Host "Starting deployment step 1/2: ENV CONFIG...`r`n" -for cyan
 		#...
 		C:\Deploy\Modules\Win_Initial.ps1
 		#...
