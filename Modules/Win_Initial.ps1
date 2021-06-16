@@ -47,6 +47,7 @@ function Set-EnvironmentVariable
 Write-Host "`r`nSetting up environment profile...`r`n" -for cyan
 
 #Creates Windows Explorer reg keys on user login
+	
 #Test if path exists before use!
 $regpath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState"
 if( ! (Test-Path -Path $regpath)) {
@@ -77,15 +78,6 @@ if( ! (Test-Path -Path $regpath2)) {
     New-Item $regpath2 -Force
 }
 Set-ItemProperty -Path $regpath2 -Name AllItemsIconView -Value 1 -Force
-#Disable Notifications
-$regpath = "HKCU:\Software\Policies\Microsoft\Windows\Explorer"
-if( ! (Test-Path -Path $regpath)) {
-    #-Force is important to recurisvely create path if needed.
-    New-Item $regpath -Force
-}
-Set-ItemProperty -Path $regpath -Name "DisableNotificationCenter" -Type DWord -Value 1 -Force
-Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -Type DWord -Value 0 -Force
-
 #Setup Environment Variables
 Set-EnvironmentVariable -Name Home -Value $Env:USERPROFILE -Target User 
 Set-EnvironmentVariable -Name Home -Value $Env:USERPROFILE -Target Machine
@@ -101,7 +93,3 @@ Set-EnvironmentVariable -Name PATH -Value $Path -Target Machine
 #PSG remote runner vars
 Set-EnvironmentVariable -Name PSGROOTDIR -Value "c:\Automation_PSG" -Target User 
 Set-EnvironmentVariable -Name PSGROOTDIR -Value "c:\Automation_PSG" -Target Machine
- 
-
-#reboot #1
-#shutdown -r -t 10

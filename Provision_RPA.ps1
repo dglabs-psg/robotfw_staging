@@ -92,14 +92,6 @@ $SupportedOS = $true
 ################################################## OS VALIDATOR ] (end) #############################################################
 if($SupportedOS -eq $true){
 
-    $Path = "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jpeg\UserChoice"
-    $SubKey = [Microsoft.Win32.Registry]::CurrentUser.OpenSubKey($Path, [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions)
-    $Acl = $SubKey.GetAccessControl()
-    $RemoveAcl = $Acl.Access | Where-Object {$_.AccessControlType -eq "Deny"}
-    $Acl.RemoveAccessRule($RemoveAcl)
-    $SubKey.SetAccessControl($Acl)
-    $SubKey.Close()
-
 	#Configure registry checkpoint mechanism
 	$regpath = "HKCU:\Software\DigitalGuardian\"
 	if(Test-Path($regpath)){}else{New-Item –Path $regpath -Name "RPA" -Force}
