@@ -1,0 +1,2 @@
+c:\WINDOWS\system32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -NoProfile -Execution Bypass -File C:\Deploy\Modules\Console.ps1
+start c:\WINDOWS\system32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -NoProfile -Execution Bypass -File C:\Deploy\Provision_RPA.ps1
