@@ -68,25 +68,28 @@ Write-Host "Success: Code=0" -for green
 #ROBOT FRAMEWORK
 ##install robotframework & selenium library
 Write-Host "Deploying robotframework & selenium library..." -for cyan
-pip install robotframework-remoterunner
-pip install robotframework==3.1.1
-pip install wheel
-pip install wxPython==4.1.0
-pip install robotframework==3.1.1
-pip install robotframework-archivelibrary==0.4.0
-pip install robotframework-autoitlibrary==1.1.0
-pip install decorator
-pip install robotframework-selenium2library==1.8.0
-pip install pyodbc
-pip install jdcal
-pip install et-xmlfile
-pip install openpyxl
-pip install xlwt
-pip install xlrd
-pip install xlutils
-pip install checksumdir
-pip install xlwings
-pip install psutil
+&C:\Python27\Scripts\pip.exe install robotframework-remoterunner
+&C:\Python27\Scripts\pip.exe install robotframework==3.1.1
+&C:\Python27\Scripts\pip.exe install wheel
+&C:\Python27\Scripts\pip.exe install wxPython==4.1.0
+&C:\Python27\Scripts\pip.exe install robotframework==3.1.1
+&C:\Python27\Scripts\pip.exe install robotframework-archivelibrary==0.4.0
+&C:\Python27\Scripts\pip.exe install robotframework-autoitlibrary==1.1.0
+&C:\Python27\Scripts\pip.exe install decorator
+&C:\Python27\Scripts\pip.exe install robotframework-selenium2library==1.8.0
+&C:\Python27\Scripts\pip.exe install pyodbc
+&C:\Python27\Scripts\pip.exe install jdcal
+&C:\Python27\Scripts\pip.exe install et-xmlfile
+&C:\Python27\Scripts\pip.exe install openpyxl
+&C:\Python27\Scripts\pip.exe install xlwt
+&C:\Python27\Scripts\pip.exe install xlrd
+&C:\Python27\Scripts\pip.exe install xlutils
+&C:\Python27\Scripts\pip.exe install checksumdir
+&C:\Python27\Scripts\pip.exe install xlwings
+&C:\Python27\Scripts\pip.exe install psutil
+&C:\Python27\Scripts\pip.exe install setuptools
+&C:\Python27\Scripts\pip.exe install pathlib
+&C:\Python27\Scripts\pip.exe install scandir
 
 
 #FETCH AUTOMATION_PSG LIBRARY
