@@ -1,2 +1,3 @@
+## PSG ROBOT FRAMEWORK ##
 # robotfw_staging
-Dependancies setup script
+Dependancies setup script on HOST server in Azure/AWS
