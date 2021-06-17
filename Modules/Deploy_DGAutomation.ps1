@@ -118,15 +118,15 @@ git init
 #git config core.packedGitLimit 1g
 #git config core.packedGitWindowSize 1g
 
-git pull git@github.com:dglabs-psg/robotfw.git
+$mygit = Read-Host "Enter your git ssh repository string (e.g., git@github.com:<MYORG>/<MYREPO>.git)" -AsSecureString
+git pull $mygit
 
-#Executy PY setup
+#Execute PY setup
 &c:\python27\python.exe c:\Automation_PSG\SetupEnv.py
 
 #add exclusions and set defender back on
 Add-MpPreference -ExclusionPath "C:\Automation_PSG";
 Add-MpPreference -ExclusionPath "C:\AutoItLibrary-1.1";
-Add-MpPreference -ExclusionPath "C:\tools";
 Set-MpPreference -DisableRealtimeMonitoring $false
 Set-MpPreference -DisableIOAVProtection $false
 
