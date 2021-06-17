@@ -69,10 +69,10 @@ Write-Host "Success: Code=0" -for green
 ##install robotframework & selenium library
 Write-Host "Deploying robotframework & selenium library..." -for cyan
 pip install robotframework-remoterunner
-pip install robotframework==3.0.4
+pip install robotframework==3.1.1
 pip install wheel
 pip install wxPython==4.1.0
-pip install robotframework==3.0.4
+pip install robotframework==3.1.1
 pip install robotframework-archivelibrary==0.4.0
 pip install robotframework-autoitlibrary==1.1.0
 pip install decorator
@@ -121,8 +121,6 @@ git init
 $mygit = Read-Host "Enter your git ssh repository string (e.g., git@github.com:<MYORG>/<MYREPO>.git)" -AsSecureString
 git pull $mygit
 
-#Execute PY setup
-&c:\python27\python.exe c:\Automation_PSG\SetupEnv.py
 
 #add exclusions and set defender back on
 Add-MpPreference -ExclusionPath "C:\Automation_PSG";

@@ -94,7 +94,9 @@ if($SupportedOS -eq $true){
 
 	#Configure registry checkpoint mechanism
 	$regpath = "HKCU:\Software\DigitalGuardian\"
-	if(Test-Path($regpath)){}else{New-Item –Path $regpath -Name "RPA" -Force}
+	if(Test-Path($regpath)){}else{New-Item –Path $regpath -Force}
+    $regsubpath = "HKCU:\Software\DigitalGuardian\RPA"
+    if(Test-Path($regsubpath)){}else{New-Item –Path $regpath -Name "RPA" -Force}
 
 
 	#Functions
@@ -171,7 +173,7 @@ if($SupportedOS -eq $true){
 		  Write-Host $_
 		  $s1completed = 0;
 		  }
-		finally{if($s1completed -eq 1){set-regitem $regpath "Status" 1;set-regitem $regpath "Step1" 1;Write-Host "`r`n[STEP 1]: COMPLETED`r`n" -for green; Sleep 300}} #Sleep is to prevent step crawl
+		finally{if($s1completed -eq 1){set-regitem $regpath "Status" 1;set-regitem $regpath "Step1" 1;Write-Host "`r`n[STEP 1]: COMPLETED`r`n" -for green; Write-Host "`r`n[STEP 2]: INITIALISING`r`n" -for green; Sleep 30}} #Sleep is to prevent step crawl
 
 	}
 
