@@ -173,10 +173,34 @@ if($SupportedOS -eq $true){
 		  Write-Host $_
 		  $s1completed = 0;
 		  }
-		finally{if($s1completed -eq 1){set-regitem $regpath "Status" 1;set-regitem $regpath "Step1" 1;Write-Host "`r`n[STEP 1]: COMPLETED`r`n" -for green; Write-Host "`r`n[STEP 2]: INITIALISING`r`n" -for green; Sleep 30}} #Sleep is to prevent step crawl
+		if($s1completed -eq 1){set-regitem $regpath "Status" 1;set-regitem $regpath "Step1" 1;Write-Host "`r`n[STEP 1]: COMPLETED`r`n" -for green; Write-Host "`r`n[STEP 2]: INITIALISING`r`n" -for green}
 
 	}
 
+	#Checkpoint steps
+	$regpath = "HKCU:\Software\DigitalGuardian\RPA"
+	$checkpointHive = Get-Item -path $regpath
+	$checkpointStep1 = get-regitem $checkpointHive "Step1" -ErrorAction SilentlyContinue
+	$checkpointStep2 = get-regitem $checkpointHive "Step2" -ErrorAction SilentlyContinue
+    $checkpointStatus = get-regitem $checkpointHive "Status" -ErrorAction SilentlyContinue
+
+	#Step1 check
+	if($checkpointStep1){
+		$Step1 = $checkpointStep1.Value
+	}else{
+		Set-ItemProperty -Path $regpath -Name "Step1" -Value 0 -Type Dword
+		$Step1 = 0 #never run before this
+	}
+	#Step2 check
+	if($checkpointStep2){
+		$Step2 = $checkpointStep2.Value
+	}else{
+		Set-ItemProperty -Path $regpath -Name "Step2" -Value 0 -Type Dword
+		$Step2 = 0 #never run before this
+	}
+	#Status check
+	$Status = $checkpointStatus.Value
+	
 	# --- DEPLOYING STEP 2 ----
 	if($Step2 -eq 0 -and $Status -eq 1 -and $Step1 -eq 1){
 		try{
