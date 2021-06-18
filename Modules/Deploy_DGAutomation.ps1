@@ -97,7 +97,7 @@ Write-Host "Deploying AUTOMATION_PSG LIBRARY (requires manual login to GIT)..." 
 Set-Service ssh-agent -StartupType Manual
 ssh-agent -s
 $cmdmsg = '!!MANUAL INTERACTION NECESSARY!!'
-$cmdtorun = 'ssh-keygen -b 4096 -t rsa -f id_rsa -q -N ""Your_passphrase_here""'
+$cmdtorun = 'ssh-keygen -b 4096 -t rsa -f ' + $env:USERPROFILE + '\.ssh\id_rsa -q -N ""Your_passphrase_here""'
 $shell = new-object -comobject "WScript.Shell"
 $shell.popup("Run this command in another Administrator PS window and then click OK to continue on.`r`n`r`n$cmdtorun",0,$cmdmsg,0)
 $keyPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath('~/.ssh')
